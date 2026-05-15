@@ -1,0 +1,12 @@
+node_modules/
+.env
+dist/
+.turbo/
+routeTree.gen.ts
+docs/
+.claude
+_bmad
+_bmad-output
+tsconfig.tsbuildinfo
+.DS_Store
+*.log

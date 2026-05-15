@@ -1,0 +1,12 @@
+{
+  "name": "zyber",
+  "private": true,
+  "workspaces": ["apps/*"],
+  "scripts": {
+    "dev": "bun run --filter='*' dev",
+    "typecheck": "tsc -b && node_modules/.bin/tsc --noEmit -p apps/web/tsconfig.json"
+  },
+  "devDependencies": {
+    "typescript": "^5"
+  }
+}
