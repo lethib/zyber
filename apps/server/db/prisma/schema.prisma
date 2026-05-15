@@ -7,4 +7,96 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// models added in Story 1.2
+enum EvaluationStatus {
+  NotStarted
+  InProgress
+  Achieved
+  NotApplicable
+}
+
+enum MeasureLevel {
+  Standard
+  Enhanced
+}
+
+enum MeasureTheme {
+  SensibiliserEtFormer
+  ConnaitreLeSystemeDInformation
+  AuthentifierEtControlerLesAcces
+  SecuriserLesPostes
+  SecuriserLeReseau
+  SecuriserLAdministration
+  GererLeNomadisme
+  MaintenirLeSystemeDInformationAJour
+  SuperviserAuditerReagir
+  PourAllerPlusLoin
+}
+
+enum EvidenceType {
+  File
+  Url
+}
+
+model Organization {
+  id          String       @id @default(cuid())
+  name        String
+  createdAt   DateTime     @default(now())
+  users       User[]
+  assessments Assessment[]
+  evidences   Evidence[]
+}
+
+model User {
+  id             String       @id @default(cuid())
+  email          String       @unique
+  passwordHash   String
+  organizationId String
+  organization   Organization @relation(fields: [organizationId], references: [id])
+  createdAt      DateTime     @default(now())
+}
+
+model Measure {
+  id              String           @id @default(cuid())
+  title           String
+  description     String
+  theme           MeasureTheme
+  level           MeasureLevel
+  order           Int              @unique
+  evaluationItems EvaluationItem[]
+}
+
+model Assessment {
+  id              String           @id @default(cuid())
+  organizationId  String           @unique
+  organization    Organization     @relation(fields: [organizationId], references: [id])
+  createdAt       DateTime         @default(now())
+  evaluationItems EvaluationItem[]
+}
+
+model EvaluationItem {
+  id           String           @id @default(cuid())
+  assessmentId String
+  assessment   Assessment       @relation(fields: [assessmentId], references: [id])
+  measureId    String
+  measure      Measure          @relation(fields: [measureId], references: [id])
+  status       EvaluationStatus @default(NotStarted)
+  comment      String?
+  updatedAt    DateTime         @updatedAt
+  evidences    Evidence[]
+
+  @@unique([assessmentId, measureId])
+}
+
+model Evidence {
+  id               String         @id @default(cuid())
+  evaluationItemId String
+  evaluationItem   EvaluationItem @relation(fields: [evaluationItemId], references: [id])
+  type             EvidenceType
+  url              String?
+  storageKey       String?
+  fileName         String?
+  mimeType         String?
+  organizationId   String
+  organization     Organization   @relation(fields: [organizationId], references: [id])
+  createdAt        DateTime       @default(now())
+}
