@@ -1,8 +1,11 @@
 import { createFileRoute, useNavigate } from '@tanstack/react-router'
+import { useState, useRef, useEffect } from 'react'
+import { toast } from 'sonner'
 import { trpc } from '@/lib/trpc'
 import { Skeleton } from '@/components/ui/skeleton'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Textarea } from '@/components/ui/textarea'
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -49,6 +52,33 @@ function MeasureDetailPage() {
   const nextMeasure = idx < themeMeasures.length - 1 ? themeMeasures[idx + 1] : null
 
   const serverStatus = assessment?.evaluationItems.find(i => i.measureId === measureIdInt)?.status ?? 'NotStarted'
+  const serverComment = assessment?.evaluationItems.find(i => i.measureId === measureIdInt)?.comment ?? ''
+
+  const [localComment, setLocalComment] = useState(serverComment)
+  const savedCommentRef = useRef(serverComment)
+
+  const utils = trpc.useUtils()
+
+  useEffect(() => {
+    const newServerComment = assessment?.evaluationItems.find(i => i.measureId === measureIdInt)?.comment ?? ''
+    setLocalComment(newServerComment)
+    savedCommentRef.current = newServerComment
+  }, [assessment, measureIdInt])
+
+  const commentMutation = trpc.evaluation.updateComment.useMutation({
+    onSuccess: () => {
+      savedCommentRef.current = localComment
+      utils.evaluation.getByAssessment.invalidate()
+    },
+    onError: () => {
+      toast.error('Erreur de synchronisation — réessayez')
+    },
+  })
+
+  function handleCommentBlur() {
+    if (localComment === savedCommentRef.current) return
+    commentMutation.mutate({ measureId: measureIdInt, comment: localComment })
+  }
 
   function handleReturnToChecklist() {
     navigate({
@@ -127,6 +157,19 @@ function MeasureDetailPage() {
         <div className="space-y-3 pt-2 border-t border-border">
           <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Statut</p>
           <MeasureStatusSelector measureId={measureIdInt} serverStatus={serverStatus} />
+        </div>
+
+        {/* Comment */}
+        <div className="space-y-3 pt-2 border-t border-border">
+          <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">Commentaire</p>
+          <Textarea
+            value={localComment}
+            onChange={e => setLocalComment(e.target.value)}
+            onBlur={handleCommentBlur}
+            placeholder="Ajoutez un commentaire sur cette mesure…"
+            className="resize-none min-h-[100px] text-sm"
+            aria-label="Commentaire de la mesure"
+          />
         </div>
 
         {/* Navigation */}

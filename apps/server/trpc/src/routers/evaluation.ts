@@ -38,4 +38,23 @@ export const evaluationRouter = router({
         update: { status: input.status },
       })
     }),
+
+  updateComment: protectedProcedure
+    .input(z.object({
+      measureId: z.number().int(),
+      comment: z.string(),
+    }))
+    .mutation(async ({ ctx, input }) => {
+      const assessment = await prisma.assessment.findUnique({
+        where: { organizationId: ctx.organizationId },
+      })
+      if (!assessment) {
+        throw new TRPCError({ code: 'FORBIDDEN' })
+      }
+      return prisma.evaluationItem.upsert({
+        where: { assessmentId_measureId: { assessmentId: assessment.id, measureId: input.measureId } },
+        create: { assessmentId: assessment.id, measureId: input.measureId, comment: input.comment },
+        update: { comment: input.comment },
+      })
+    }),
 })
