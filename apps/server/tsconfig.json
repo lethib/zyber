@@ -6,7 +6,11 @@
     "rootDir": ".",
     "declaration": true,
     "declarationMap": true,
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "types": ["bun"],
+    "paths": {
+      "@db/*": ["./db/*"],
+    }
   },
   "include": ["db/src/**/*", "db/prisma/seed.ts", "trpc/src/**/*", "api/src/**/*"]
 }

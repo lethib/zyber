@@ -1,8 +1,5 @@
-import path from 'node:path'
-import { config } from 'dotenv'
-import { defineConfig } from 'prisma/config'
-
-config({ path: path.resolve(__dirname, '../../.env') })
+import "dotenv/config";
+import { defineConfig, env } from "prisma/config";
 
 export default defineConfig({
   schema: './db/prisma/schema.prisma',
@@ -10,4 +7,7 @@ export default defineConfig({
     path: './db/prisma/migrations',
     seed: 'bun run db/prisma/seed.ts',
   },
+  datasource: {
+    url: env("DATABASE_URL")
+  }
 })

@@ -8,27 +8,29 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@tanstack/react-router": "^1",
-    "@tanstack/react-query": "^5",
-    "@trpc/client": "^11",
-    "@trpc/react-query": "^11",
-    "react": "^19",
-    "react-dom": "^19",
-    "class-variance-authority": "^0.7",
-    "clsx": "^2",
-    "tailwind-merge": "^2",
-    "lucide-react": "^0.400.0"
+    "@radix-ui/react-label": "^2.1.8",
+    "@radix-ui/react-slot": "^1.2.4",
+    "@tanstack/react-query": "^5.100.10",
+    "@tanstack/react-router": "^1.169.2",
+    "@trpc/client": "^11.17.0",
+    "@trpc/react-query": "^11.17.0",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "lucide-react": "^1.16.0",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
+    "tailwind-merge": "^3.6.0"
   },
   "devDependencies": {
-    "@zyber/server": "workspace:*",
-    "@tailwindcss/vite": "^4",
-    "@tanstack/router-cli": "^1",
+    "@tailwindcss/vite": "^4.3.0",
+    "@tanstack/router-cli": "^1.166.43",
     "@tanstack/router-plugin": "^1.167.35",
-    "@types/react": "^19",
-    "@types/react-dom": "^19",
-    "@vitejs/plugin-react": "^4",
-    "tailwindcss": "^4",
-    "typescript": "^5",
-    "vite": "^6"
+    "@types/react": "^19.2.14",
+    "@types/react-dom": "^19.2.3",
+    "@vitejs/plugin-react": "^6.0.2",
+    "@zyber/server": "workspace:*",
+    "tailwindcss": "^4.3.0",
+    "typescript": "^6.0.3",
+    "vite": "^8.0.13"
   }
 }

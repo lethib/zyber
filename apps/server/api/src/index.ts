@@ -1,5 +1,6 @@
 import { fetchRequestHandler } from '@trpc/server/adapters/fetch'
 import { appRouter } from '../../trpc/src/router'
+import { createContext } from './auth'
 
 const CORS = {
   'Access-Control-Allow-Origin': 'http://localhost:3000',
@@ -18,7 +19,7 @@ const trpcHandler = (req: Request) =>
     endpoint: '/trpc',
     req,
     router: appRouter,
-    createContext: () => ({ session: null }),
+    createContext: () => createContext(req),
   }).then(withCors)
 
 const server = Bun.serve({

@@ -1,4 +1,3 @@
 export { appRouter } from './router'
 export type { AppRouter } from './router'
 export { router, publicProcedure, protectedProcedure } from './trpc'
-export type { Context } from './context'

@@ -32,7 +32,7 @@ CREATE TABLE "User" (
 
 -- CreateTable
 CREATE TABLE "Measure" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT NOT NULL,
     "theme" "MeasureTheme" NOT NULL,
@@ -44,7 +44,7 @@ CREATE TABLE "Measure" (
 
 -- CreateTable
 CREATE TABLE "Assessment" (
-    "id" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
     "organizationId" TEXT NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
 
@@ -53,9 +53,9 @@ CREATE TABLE "Assessment" (
 
 -- CreateTable
 CREATE TABLE "EvaluationItem" (
-    "id" TEXT NOT NULL,
-    "assessmentId" TEXT NOT NULL,
-    "measureId" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
+    "assessmentId" INTEGER NOT NULL,
+    "measureId" INTEGER NOT NULL,
     "status" "EvaluationStatus" NOT NULL DEFAULT 'NotStarted',
     "comment" TEXT,
     "updatedAt" TIMESTAMP(3) NOT NULL,
@@ -65,8 +65,8 @@ CREATE TABLE "EvaluationItem" (
 
 -- CreateTable
 CREATE TABLE "Evidence" (
-    "id" TEXT NOT NULL,
-    "evaluationItemId" TEXT NOT NULL,
+    "id" SERIAL NOT NULL,
+    "evaluationItemId" INTEGER NOT NULL,
     "type" "EvidenceType" NOT NULL,
     "url" TEXT,
     "storageKey" TEXT,

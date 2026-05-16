@@ -4,7 +4,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-  url      = env("DATABASE_URL")
 }
 
 enum EvaluationStatus {
@@ -56,7 +55,7 @@ model User {
 }
 
 model Measure {
-  id              String           @id @default(cuid())
+  id              Int              @id @default(autoincrement())
   title           String
   description     String
   theme           MeasureTheme
@@ -66,7 +65,7 @@ model Measure {
 }
 
 model Assessment {
-  id              String           @id @default(cuid())
+  id              Int              @id @default(autoincrement())
   organizationId  String           @unique
   organization    Organization     @relation(fields: [organizationId], references: [id])
   createdAt       DateTime         @default(now())
@@ -74,10 +73,10 @@ model Assessment {
 }
 
 model EvaluationItem {
-  id           String           @id @default(cuid())
-  assessmentId String
+  id           Int              @id @default(autoincrement())
+  assessmentId Int
   assessment   Assessment       @relation(fields: [assessmentId], references: [id])
-  measureId    String
+  measureId    Int
   measure      Measure          @relation(fields: [measureId], references: [id])
   status       EvaluationStatus @default(NotStarted)
   comment      String?
@@ -88,8 +87,8 @@ model EvaluationItem {
 }
 
 model Evidence {
-  id               String         @id @default(cuid())
-  evaluationItemId String
+  id               Int            @id @default(autoincrement())
+  evaluationItemId Int
   evaluationItem   EvaluationItem @relation(fields: [evaluationItemId], references: [id])
   type             EvidenceType
   url              String?

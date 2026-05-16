@@ -1,5 +1,9 @@
 import { initTRPC, TRPCError } from '@trpc/server'
-import type { Context } from './context'
+
+export interface Context {
+  session: { userId: string; organizationId: string } | null
+}
+
 
 const t = initTRPC.context<Context>().create()
 
