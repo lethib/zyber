@@ -1,4 +1,4 @@
-import { QueryClient, QueryCache } from '@tanstack/react-query'
+import { QueryClient, QueryCache, MutationCache } from '@tanstack/react-query'
 import { TRPCClientError } from '@trpc/client'
 import { clearToken } from './auth'
 
