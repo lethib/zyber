@@ -10,3 +10,4 @@ _bmad-output
 tsconfig.tsbuildinfo
 .DS_Store
 *.log
+.tanstack/
