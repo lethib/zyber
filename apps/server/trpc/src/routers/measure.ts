@@ -8,6 +8,11 @@ export const measureRouter = router({
     .query(() =>
       prisma.measure.findMany({ orderBy: { order: 'asc' } })
     ),
+  getById: protectedProcedure
+    .input(z.object({ id: z.number().int() }))
+    .query(({ input }) =>
+      prisma.measure.findUniqueOrThrow({ where: { id: input.id } })
+    ),
   getByTheme: protectedProcedure
     .input(z.object({ theme: z.enum(MeasureTheme) }))
     .query(({ input }) =>

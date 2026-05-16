@@ -9,13 +9,12 @@ import type { EvaluationStatus } from '@zyber/server'
 export const Route = createFileRoute('/_auth/checklist/')({
   validateSearch: (search: Record<string, unknown>) => ({
     theme: typeof search.theme === 'string' ? search.theme : undefined,
-    scroll: typeof search.scroll === 'number' ? search.scroll : undefined,
   }),
   component: ChecklistPage,
 })
 
 function ChecklistPage() {
-  const { theme: themeSlug, scroll } = Route.useSearch()
+  const { theme: themeSlug } = Route.useSearch()
   const navigate = Route.useNavigate()
 
   const { data: measures, isLoading: measuresLoading } = trpc.measure.getAll.useQuery()
@@ -29,9 +28,6 @@ function ChecklistPage() {
 
   const [openSlugs, setOpenSlugs] = useState<string[]>(themeSlug ? [themeSlug] : [])
 
-  useEffect(() => {
-    if (scroll) window.scrollTo(0, scroll)
-  }, [])
 
   useEffect(() => {
     if (themeSlug && !openSlugs.includes(themeSlug)) {

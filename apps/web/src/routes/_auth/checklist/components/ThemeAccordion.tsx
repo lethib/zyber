@@ -75,6 +75,7 @@ export function ThemeAccordion({ measures, statusMap, value, onValueChange }: Th
                     key={m.id}
                     measure={m}
                     status={statusMap.get(m.id) ?? 'NotStarted'}
+                    themeSlug={meta.slug}
                   />
                 ))}
               </div>

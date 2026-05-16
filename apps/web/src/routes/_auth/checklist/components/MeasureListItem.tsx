@@ -1,3 +1,4 @@
+import { useNavigate } from '@tanstack/react-router'
 import type { Measure, EvaluationStatus } from '@zyber/server'
 import { Badge } from '@/components/ui/badge'
 
@@ -11,12 +12,26 @@ const STATUS_CONFIG: Record<EvaluationStatus, { label: string; className: string
 interface MeasureListItemProps {
   measure: Measure
   status?: EvaluationStatus
+  themeSlug: string
 }
 
-export function MeasureListItem({ measure, status = 'NotStarted' }: MeasureListItemProps) {
+export function MeasureListItem({ measure, status = 'NotStarted', themeSlug }: MeasureListItemProps) {
+  const navigate = useNavigate()
   const { label, className } = STATUS_CONFIG[status]
+
+  function handleClick() {
+    navigate({
+      to: '/checklist/$measureId',
+      params: { measureId: String(measure.id) },
+      search: { returnTheme: themeSlug },
+    })
+  }
+
   return (
-    <div className="flex items-center justify-between py-3 px-4 hover:bg-muted/50 cursor-default rounded-sm">
+    <div
+      onClick={handleClick}
+      className="flex items-center justify-between py-3 px-4 hover:bg-muted/50 cursor-pointer rounded-sm"
+    >
       <span className="text-sm text-foreground">{measure.title}</span>
       <Badge variant="outline" className={`shrink-0 ml-4 ${className}`}>{label}</Badge>
     </div>
