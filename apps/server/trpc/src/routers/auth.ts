@@ -3,7 +3,7 @@ import { SignJWT } from 'jose'
 import { Prisma } from '@prisma/client'
 import { z } from 'zod'
 import { prisma } from '@db/src/index'
-import { publicProcedure, router } from '../trpc'
+import { publicProcedure, protectedProcedure, router } from '../trpc'
 
 export const authRouter = router({
   register: publicProcedure
@@ -37,4 +37,24 @@ export const authRouter = router({
         throw new TRPCError({ code: 'INTERNAL_SERVER_ERROR' })
       }
     }),
+
+  login: publicProcedure
+    .input(z.object({
+      email: z.email(),
+      password: z.string().min(1),
+    }))
+    .mutation(async ({ input }) => {
+      const user = await prisma.user.findUnique({ where: { email: input.email } })
+      if (!user || !(await Bun.password.verify(input.password, user.passwordHash))) {
+        throw new TRPCError({ code: 'UNAUTHORIZED', message: 'INVALID_CREDENTIALS' })
+      }
+      const token = await new SignJWT({ userId: user.id, organizationId: user.organizationId })
+        .setProtectedHeader({ alg: 'HS256' })
+        .setExpirationTime('7d')
+        .sign(new TextEncoder().encode(process.env.JWT_SECRET!))
+      return { token }
+    }),
+
+  logout: protectedProcedure
+    .mutation(() => ({ ok: true })),
 })

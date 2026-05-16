@@ -1,16 +1,10 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { trpc } from '../lib/trpc'
+import { createFileRoute, redirect } from '@tanstack/react-router'
+import { getToken } from '../lib/auth'
 
 export const Route = createFileRoute('/')({
-  component: Index,
+  beforeLoad: () => {
+    const token = getToken()
+    if (token) throw redirect({ to: '/dashboard' })
+    throw redirect({ to: '/login' })
+  },
 })
-
-function Index() {
-  const { data } = trpc.health.ping.useQuery()
-  return (
-    <div>
-      <h1>Zyber</h1>
-      {data && <p>pong: {String(data.pong)}</p>}
-    </div>
-  )
-}

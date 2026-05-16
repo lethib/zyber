@@ -3,7 +3,8 @@ import { getToken } from '../lib/auth'
 
 export const Route = createFileRoute('/_auth')({
   beforeLoad: () => {
-    if (!getToken()) throw redirect({ to: '/login' })
+    const token = getToken()
+    if (!token) throw redirect({ to: '/login' })
   },
   component: () => <Outlet />,
 })
