@@ -37,7 +37,7 @@ export function AppSidebar() {
   return (
     <Sidebar>
       <SidebarHeader className="px-3 py-4">
-        <span className="text-lg font-semibold text-zinc-900">Zyber</span>
+        <span className="text-lg font-semibold text-zinc-900">Vauban</span>
       </SidebarHeader>
       <SidebarContent className="px-3">
         <SidebarMenu>

@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { PlanActionList } from './PlanActionList'
+import { PlanActionList } from './components/PlanActionList'
 
 export const Route = createFileRoute('/_auth/plan-action/')({
   component: PlanActionPage,
