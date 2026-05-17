@@ -15,9 +15,9 @@ import {
   BreadcrumbSeparator,
 } from '@/components/ui/breadcrumb'
 import { MeasureStatusSelector } from './components/MeasureStatusSelector'
-import { THEME_META } from './components/ThemeAccordion'
+import { THEME_META } from '../components/ThemeAccordion'
 
-export const Route = createFileRoute('/_auth/checklist/$measureId')({
+export const Route = createFileRoute('/_auth/checklist/$measureId/')({
   validateSearch: (search: Record<string, unknown>) => ({
     returnTheme: typeof search.returnTheme === 'string' ? search.returnTheme : undefined,
   }),
@@ -167,7 +167,7 @@ function MeasureDetailPage() {
             onChange={e => setLocalComment(e.target.value)}
             onBlur={handleCommentBlur}
             placeholder="Ajoutez un commentaire sur cette mesure…"
-            className="resize-none min-h-[100px] text-sm"
+            className="resize-none min-h-25 text-sm"
             aria-label="Commentaire de la mesure"
           />
         </div>

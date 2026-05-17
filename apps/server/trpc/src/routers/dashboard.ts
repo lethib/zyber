@@ -63,12 +63,29 @@ export const dashboardRouter = router({
         ).length
         const standardScore = computeScore(standardMeasures)
 
+        const standardAtteint = standardMeasures.filter(
+          m => itemByMeasureId.get(m.id)?.status === EvaluationStatus.Achieved
+        ).length
+        const standardTotal = standardMeasures.filter(
+          m => itemByMeasureId.get(m.id)?.status !== EvaluationStatus.NotApplicable
+        ).length
+        const renforceAtteint = enforcedMeasures.filter(
+          m => itemByMeasureId.get(m.id)?.status === EvaluationStatus.Achieved
+        ).length
+        const renforceTotal = enforcedMeasures.filter(
+          m => itemByMeasureId.get(m.id)?.status !== EvaluationStatus.NotApplicable
+        ).length
+
         return {
           theme,
           atteint,
           total: applicable.length,
           standardScore,
+          standardAtteint,
+          standardTotal,
           renforceScore: computeScore(enforcedMeasures),
+          renforceAtteint,
+          renforceTotal,
           belowStandard: standardScore < 100,
         }
       })
