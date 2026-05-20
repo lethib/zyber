@@ -2,7 +2,6 @@ node_modules/
 .env
 dist/
 .turbo/
-routeTree.gen.ts
 docs/
 .claude
 _bmad
@@ -11,3 +10,4 @@ tsconfig.tsbuildinfo
 .DS_Store
 *.log
 .tanstack/
+.zed/

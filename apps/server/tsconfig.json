@@ -10,7 +10,8 @@
     "types": ["bun"],
     "paths": {
       "@db/*": ["./db/*"],
+      "@services/*": ["./services/*"]
     }
   },
-  "include": ["db/src/**/*", "db/prisma/seed.ts", "trpc/src/**/*", "api/src/**/*"]
+  "include": ["db/src/**/*", "db/prisma/seed.ts", "trpc/src/**/*", "api/src/**/*", "services/*"]
 }
