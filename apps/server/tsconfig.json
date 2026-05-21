@@ -1,17 +1,17 @@
 {
-  "extends": "../../tsconfig.json",
-  "compilerOptions": {
-    "composite": true,
-    "outDir": "./dist",
-    "rootDir": ".",
-    "declaration": true,
-    "declarationMap": true,
-    "emitDeclarationOnly": true,
-    "types": ["bun"],
-    "paths": {
-      "@db/*": ["./db/*"],
-      "@services/*": ["./services/*"]
-    }
-  },
-  "include": ["db/src/**/*", "db/prisma/seed.ts", "trpc/src/**/*", "api/src/**/*", "services/*"]
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"composite": true,
+		"outDir": "./dist",
+		"rootDir": ".",
+		"declaration": true,
+		"declarationMap": true,
+		"emitDeclarationOnly": true,
+		"types": ["bun"],
+		"paths": {
+			"@db/*": ["./db/*"],
+			"@services/*": ["./services/*"]
+		}
+	},
+	"include": ["db/src/**/*", "db/prisma/seed.ts", "trpc/src/**/*", "api/src/**/*", "services/*"]
 }
