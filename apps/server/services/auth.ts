@@ -11,6 +11,12 @@ export class UserAuthService {
 		this.user = user;
 	}
 
+	static async findByEmail(email: string): Promise<UserAuthService> {
+		const user = await prisma.user.findUnique({ where: { email } });
+		if (!user) throw new TRPCError({ code: "NOT_FOUND" });
+		return new UserAuthService(user);
+	}
+
 	static async createUserAndOrganization(email: string, password: string) {
 		const passwordHash = await Bun.password.hash(password);
 		const orgName = email.split("@")[1]?.split(".")[0] ?? "org";
@@ -44,7 +50,7 @@ export class UserAuthService {
 		})
 			.setProtectedHeader({ alg: "HS256" })
 			.setExpirationTime("7d")
-			.sign(new TextEncoder().encode(process.env.JWT_SECRET));
+			.sign(new TextEncoder().encode(Bun.env.JWT_SECRET));
 	}
 
 	async checkPassword(password: string) {
