@@ -2,362 +2,351 @@ import { MeasureLevel, MeasureTheme } from "@prisma/client";
 import { prisma } from "../src/index";
 
 const measures = [
-	// Theme I: Sensibiliser et former
+	// Theme I: Awareness and Training
 	{
 		order: 1,
-		theme: MeasureTheme.SensibiliserEtFormer,
+		theme: MeasureTheme.AwarenessAndTraining,
 		level: MeasureLevel.Standard,
-		title: "Former les équipes opérationnelles à la sécurité des systèmes d'information",
+		title: "Train operational teams on information system security",
 		description:
-			"Les équipes opérationnelles (administrateurs réseau, sécurité et système, chefs de projet, développeurs, RSSI) doivent suivre à leur prise de poste puis à intervalles réguliers des formations sur la législation, les principaux risques et menaces, l'authentification et le contrôle d'accès, le paramétrage des systèmes, le cloisonnement réseau et la journalisation.",
+			"Operational teams (network, security and system administrators, project managers, developers, CISOs) must receive training on joining and at regular intervals covering legislation, key risks and threats, authentication and access control, system configuration, network segmentation, and logging.",
 	},
 	{
 		order: 2,
-		theme: MeasureTheme.SensibiliserEtFormer,
+		theme: MeasureTheme.AwarenessAndTraining,
 		level: MeasureLevel.Enhanced,
-		title:
-			"Sensibiliser les utilisateurs aux bonnes pratiques élémentaires de sécurité informatique",
+		title: "Raise user awareness of basic cybersecurity best practices",
 		description:
-			"Chaque utilisateur doit être informé dès son arrivée des enjeux de sécurité, des règles à respecter et des bons comportements à adopter. Les sensibilisations doivent être régulières, adaptées aux utilisateurs ciblés, et aborder les objectifs SSI, les informations sensibles, les réglementations et les règles de sécurité quotidiennes.",
+			"Every user must be briefed on arrival about security stakes, rules to follow, and good behaviours to adopt. Awareness sessions must be regular, tailored to the target audience, and cover information security objectives, sensitive information, regulations, and day-to-day security rules.",
 	},
 	{
 		order: 3,
-		theme: MeasureTheme.SensibiliserEtFormer,
+		theme: MeasureTheme.AwarenessAndTraining,
 		level: MeasureLevel.Standard,
-		title: "Maîtriser les risques de l'infogérance",
+		title: "Manage IT outsourcing risks",
 		description:
-			"Lorsqu'une entité externalise son système d'information, elle doit évaluer les risques spécifiques à l'infogérance et imposer des exigences précises au prestataire : réversibilité du contrat, réalisation d'audits, sauvegarde et restitution des données dans un format ouvert, maintien à niveau de la sécurité. Le prestataire fournira un plan d'assurance sécurité (PAS).",
+			"When an organisation outsources its information system, it must assess the specific risks of outsourcing and impose precise requirements on the provider: contract reversibility, audit rights, data backup and return in an open format, and maintained security levels. The provider will supply a security assurance plan (SAP).",
 	},
-	// Theme II: Connaître le système d'information
+	// Theme II: Know Your Information System
 	{
 		order: 4,
-		theme: MeasureTheme.ConnaitreLeSystemeDInformation,
+		theme: MeasureTheme.KnowYourInformationSystem,
 		level: MeasureLevel.Standard,
-		title:
-			"Identifier les informations et serveurs les plus sensibles et maintenir un schéma du réseau",
+		title: "Identify sensitive information and servers, and maintain a network diagram",
 		description:
-			"Il est indispensable d'identifier les données sensibles et de créer un schéma simplifié du réseau représentant les zones IP, le plan d'adressage, les équipements de routage et de sécurité, et les interconnexions avec l'extérieur. Ce schéma doit permettre de localiser les serveurs détenteurs d'informations sensibles.",
+			"It is essential to identify sensitive data and create a simplified network diagram showing IP zones, address plan, routing and security equipment, and external interconnections. This diagram must allow the location of servers holding sensitive information.",
 	},
 	{
 		order: 5,
-		theme: MeasureTheme.ConnaitreLeSystemeDInformation,
+		theme: MeasureTheme.KnowYourInformationSystem,
 		level: MeasureLevel.Standard,
-		title: "Disposer d'un inventaire exhaustif des comptes privilégiés et le maintenir à jour",
+		title: "Maintain a comprehensive and up-to-date inventory of privileged accounts",
 		description:
-			"Effectuer un inventaire des comptes bénéficiant de droits spécifiques, le mettre à jour régulièrement, et y renseigner les utilisateurs ayant des droits administrateur ou des accès élargis. Procéder à une revue périodique pour supprimer les accès devenus obsolètes.",
+			"Maintain an inventory of accounts with specific rights, update it regularly, and record users with administrator rights or elevated access. Conduct periodic reviews to remove obsolete access.",
 	},
 	{
 		order: 6,
-		theme: MeasureTheme.ConnaitreLeSystemeDInformation,
+		theme: MeasureTheme.KnowYourInformationSystem,
 		level: MeasureLevel.Enhanced,
-		title:
-			"Organiser les procédures d'arrivée, de départ et de changement de fonction des utilisateurs",
+		title: "Define procedures for user onboarding, offboarding, and role changes",
 		description:
-			"Définir des procédures d'arrivée et de départ en lien avec les RH, couvrant la création/suppression des comptes, les droits d'accès, la gestion des accès physiques, l'affectation des équipements mobiles et la gestion des informations sensibles. Les procédures doivent être formalisées et mises à jour.",
+			"Define onboarding and offboarding procedures in coordination with HR, covering account creation/deletion, access rights, physical access management, mobile device assignment, and handling of sensitive information. Procedures must be formalised and kept up to date.",
 	},
 	{
 		order: 7,
-		theme: MeasureTheme.ConnaitreLeSystemeDInformation,
+		theme: MeasureTheme.KnowYourInformationSystem,
 		level: MeasureLevel.Enhanced,
-		title: "Autoriser la connexion au réseau de l'entité aux seuls équipements maîtrisés",
+		title: "Restrict network access to managed devices only",
 		description:
-			"Seule la connexion de terminaux maîtrisés par l'entité doit être autorisée sur ses réseaux d'accès, filaires ou sans fil. Des solutions pragmatiques comme un réseau Wi-Fi dédié pour terminaux personnels doivent être proposées. En renforcé : authentification des postes via 802.1X ou équivalent.",
+			"Only connections from organisation-managed devices should be authorised on its access networks, wired or wireless. Pragmatic solutions such as a dedicated Wi-Fi network for personal devices should be provided. In enhanced mode: workstation authentication via 802.1X or equivalent.",
 	},
-	// Theme III: Authentifier et contrôler les accès
+	// Theme III: Authenticate and Control Access
 	{
 		order: 8,
-		theme: MeasureTheme.AuthentifierEtControlerLesAcces,
+		theme: MeasureTheme.AuthenticateAndControlAccess,
 		level: MeasureLevel.Enhanced,
-		title:
-			"Identifier nommément chaque personne accédant au système et distinguer les rôles utilisateur/administrateur",
+		title: "Identify each system user by name and separate user and administrator roles",
 		description:
-			"Les comptes d'accès doivent être nominatifs. Un compte d'administration nominatif distinct du compte utilisateur doit être attribué à chaque administrateur. En renforcé : activer la journalisation liée aux comptes (relevé des connexions réussies/échouées).",
+			"Access accounts must be personal. A separate named administration account distinct from the user account must be assigned to each administrator. In enhanced mode: enable account-related logging (record of successful/failed logins).",
 	},
 	{
 		order: 9,
-		theme: MeasureTheme.AuthentifierEtControlerLesAcces,
+		theme: MeasureTheme.AuthenticateAndControlAccess,
 		level: MeasureLevel.Standard,
-		title: "Attribuer les bons droits sur les ressources sensibles du système d'information",
+		title: "Assign appropriate permissions on sensitive information system resources",
 		description:
-			"Établir une liste précise des ressources sensibles, définir quelle population peut y avoir accès, contrôler strictement leur accès, et éviter leur dispersion. Une revue régulière des droits d'accès doit être réalisée pour identifier les accès non autorisés.",
+			"Establish a precise list of sensitive resources, define which populations can access them, strictly control their access, and avoid their proliferation. Regular access rights reviews must be conducted to identify unauthorised access.",
 	},
 	{
 		order: 10,
-		theme: MeasureTheme.AuthentifierEtControlerLesAcces,
+		theme: MeasureTheme.AuthenticateAndControlAccess,
 		level: MeasureLevel.Standard,
-		title: "Définir et vérifier des règles de choix et de dimensionnement des mots de passe",
+		title: "Define and enforce password selection and complexity rules",
 		description:
-			"Encadrer et vérifier l'application des règles de choix et de dimensionnement des mots de passe : blocage des comptes après plusieurs échecs, désactivation des connexions anonymes, utilisation d'un outil d'audit de robustesse des mots de passe.",
+			"Oversee and verify the application of password selection and complexity rules: account lockout after multiple failures, disabling anonymous logins, use of a password strength audit tool.",
 	},
 	{
 		order: 11,
-		theme: MeasureTheme.AuthentifierEtControlerLesAcces,
+		theme: MeasureTheme.AuthenticateAndControlAccess,
 		level: MeasureLevel.Standard,
-		title: "Protéger les mots de passe stockés sur les systèmes",
+		title: "Protect passwords stored on systems",
 		description:
-			"Les mots de passe doivent être protégés au moyen de solutions sécurisées : coffre-fort numérique et mécanismes de chiffrement. Le stockage sur support physique (post-it) ou non chiffré est à proscrire.",
+			"Passwords must be protected using secure solutions: digital vaults and encryption mechanisms. Storage on physical media (sticky notes) or unencrypted storage must be prohibited.",
 	},
 	{
 		order: 12,
-		theme: MeasureTheme.AuthentifierEtControlerLesAcces,
+		theme: MeasureTheme.AuthenticateAndControlAccess,
 		level: MeasureLevel.Enhanced,
-		title: "Changer les éléments d'authentification par défaut sur les équipements et services",
+		title: "Change default authentication credentials on devices and services",
 		description:
-			"Les éléments d'authentification par défaut doivent être modifiés dès l'installation. En renforcé : procéder au renouvellement régulier des authentifiants après leur changement initial pour limiter les conséquences d'une compromission.",
+			"Default authentication credentials must be changed upon installation. In enhanced mode: regularly renew credentials after the initial change to limit the impact of a compromise.",
 	},
 	{
 		order: 13,
-		theme: MeasureTheme.AuthentifierEtControlerLesAcces,
+		theme: MeasureTheme.AuthenticateAndControlAccess,
 		level: MeasureLevel.Enhanced,
-		title: "Privilégier lorsque c'est possible une authentification forte",
+		title: "Use strong authentication wherever possible",
 		description:
-			"Mettre en œuvre une authentification forte à deux facteurs (quelque chose que je sais, possède, ou suis). En renforcé : privilégier les cartes à puce ou mécanismes OTP avec jeton physique. Standard : cartes à puce ou mécanismes d'authentification forte adaptés.",
+			"Implement two-factor strong authentication (something you know, have, or are). In enhanced mode: prefer smart cards or OTP mechanisms with a physical token. Standard: smart cards or suitable strong authentication mechanisms.",
 	},
-	// Theme IV: Sécuriser les postes
+	// Theme IV: Secure Workstations
 	{
 		order: 14,
-		theme: MeasureTheme.SecuriserLesPostes,
+		theme: MeasureTheme.SecureWorkstations,
 		level: MeasureLevel.Enhanced,
-		title: "Mettre en place un niveau de sécurité minimal sur l'ensemble du parc informatique",
+		title: "Implement a minimum security baseline across all IT assets",
 		description:
-			"Implémenter un niveau de sécurité minimal : limiter les applications installées, doter les postes d'un pare-feu et d'un antivirus, chiffrer les partitions des données utilisateurs, désactiver l'exécution automatique. En renforcé : isoler les postes nécessitant dérogation et assurer des sauvegardes régulières déconnectées.",
+			"Implement a minimum security level: limit installed applications, equip workstations with a firewall and antivirus, encrypt user data partitions, disable autorun. In enhanced mode: isolate non-compliant workstations and ensure regular offline backups.",
 	},
 	{
 		order: 15,
-		theme: MeasureTheme.SecuriserLesPostes,
+		theme: MeasureTheme.SecureWorkstations,
 		level: MeasureLevel.Enhanced,
-		title: "Se protéger des menaces relatives à l'utilisation de supports amovibles",
+		title: "Protect against threats posed by removable media",
 		description:
-			"Proscrire le branchement de clés USB inconnues, limiter celui de clés non maîtrisées et faire inspecter leur contenu par l'antivirus. En renforcé : interdire l'exécution de programmes sur les périphériques amovibles (Applocker/noexec) et appliquer une procédure de mise au rebut sécurisée.",
+			"Prohibit plugging in unknown USB drives, limit use of unmanaged drives and have their contents scanned by antivirus. In enhanced mode: prohibit execution of programmes on removable devices (AppLocker/noexec) and apply a secure disposal procedure.",
 	},
 	{
 		order: 16,
-		theme: MeasureTheme.SecuriserLesPostes,
+		theme: MeasureTheme.SecureWorkstations,
 		level: MeasureLevel.Standard,
-		title:
-			"Utiliser un outil de gestion centralisée afin d'homogénéiser les politiques de sécurité",
+		title: "Use a centralised management tool to standardise security policies",
 		description:
-			"Se doter d'un outil de gestion centralisée (ex : Active Directory) pour appliquer de manière simple et rapide les politiques de sécurité sur l'ensemble du parc informatique (postes de travail et serveurs), facilitant la mise en œuvre de contre-mesures en cas de crise.",
+			"Adopt a centralised management tool (e.g. Active Directory) to simply and quickly apply security policies across all IT assets (workstations and servers), facilitating countermeasure deployment during a crisis.",
 	},
 	{
 		order: 17,
-		theme: MeasureTheme.SecuriserLesPostes,
+		theme: MeasureTheme.SecureWorkstations,
 		level: MeasureLevel.Enhanced,
-		title: "Activer et configurer le pare-feu local des postes de travail",
+		title: "Enable and configure the local firewall on workstations",
 		description:
-			"Activer le pare-feu local des postes de travail pour rendre plus difficile les déplacements latéraux d'un attaquant. En renforcé : bloquer les ports d'administration par défaut (TCP 135, 445, 3389, 22) sauf depuis les équipements explicitement autorisés, et journaliser les flux bloqués.",
+			"Enable the workstation local firewall to make lateral movement more difficult for attackers. In enhanced mode: block default administration ports (TCP 135, 445, 3389, 22) except from explicitly authorised devices, and log blocked traffic.",
 	},
 	{
 		order: 18,
-		theme: MeasureTheme.SecuriserLesPostes,
+		theme: MeasureTheme.SecureWorkstations,
 		level: MeasureLevel.Standard,
-		title: "Chiffrer les données sensibles transmises par voie Internet",
+		title: "Encrypt sensitive data transmitted over the Internet",
 		description:
-			"Procéder au chiffrement systématique des données envoyées par courriel ou transmises via des outils d'hébergement en ligne. La transmission du secret de déchiffrement doit se faire via un canal de confiance distinct du canal de transmission des données.",
+			"Systematically encrypt data sent by email or transmitted via online hosting tools. The decryption key must be transmitted via a trusted channel separate from the data transmission channel.",
 	},
-	// Theme V: Sécuriser le réseau
+	// Theme V: Secure Network
 	{
 		order: 19,
-		theme: MeasureTheme.SecuriserLeReseau,
+		theme: MeasureTheme.SecureNetwork,
 		level: MeasureLevel.Standard,
-		title: "Segmenter le réseau et mettre en place un cloisonnement entre ces zones",
+		title: "Segment the network and implement zone separation",
 		description:
-			"Raisonner par segmentation en zones composées de systèmes aux besoins de sécurité homogènes (serveurs d'infrastructure, serveurs métiers, postes utilisateurs, postes administrateurs). Mettre en place des VLAN et sous-réseaux IP dédiés avec filtrage IP entre zones.",
+			"Design the network around segments composed of systems with homogeneous security needs (infrastructure servers, business servers, user workstations, administration workstations). Implement dedicated VLANs and IP subnets with IP filtering between zones.",
 	},
 	{
 		order: 20,
-		theme: MeasureTheme.SecuriserLeReseau,
+		theme: MeasureTheme.SecureNetwork,
 		level: MeasureLevel.Standard,
-		title: "S'assurer de la sécurité des réseaux d'accès Wi-Fi et de la séparation des usages",
+		title: "Ensure the security of Wi-Fi access networks and separate usage types",
 		description:
-			"Utiliser un chiffrement robuste (WPA2/AES CCMP) avec authentification centralisée. Séparer le réseau Wi-Fi des terminaux personnels ou visiteurs de celui des terminaux de l'entité (SSID et VLAN distincts). Administrer les points d'accès de manière sécurisée.",
+			"Use strong encryption (WPA2/AES CCMP) with centralised authentication. Separate the Wi-Fi network for personal or guest devices from the organisation's network (distinct SSIDs and VLANs). Administer access points securely.",
 	},
 	{
 		order: 21,
-		theme: MeasureTheme.SecuriserLeReseau,
+		theme: MeasureTheme.SecureNetwork,
 		level: MeasureLevel.Standard,
-		title: "Utiliser des protocoles réseaux sécurisés dès qu'ils existent",
+		title: "Use secure network protocols whenever available",
 		description:
-			"Utiliser les protocoles réseaux sécurisés (HTTPS, IMAPS, SMTPS, POP3S, SSH) dès que possible, que ce soit sur des réseaux publics ou sur le réseau interne de l'entité. Remplacer les protocoles non sécurisés (TELNET, RLOGIN) par leurs équivalents sécurisés.",
+			"Use secure network protocols (HTTPS, IMAPS, SMTPS, POP3S, SSH) whenever possible, on both public and internal networks. Replace unsecured protocols (TELNET, RLOGIN) with their secure equivalents.",
 	},
 	{
 		order: 22,
-		theme: MeasureTheme.SecuriserLeReseau,
+		theme: MeasureTheme.SecureNetwork,
 		level: MeasureLevel.Enhanced,
-		title: "Mettre en place une passerelle d'accès sécurisé à Internet",
+		title: "Deploy a secure Internet access gateway",
 		description:
-			"Mettre en œuvre une passerelle sécurisée comprenant un pare-feu et un serveur mandataire (proxy) avec authentification des utilisateurs et journalisation. En renforcé : activer l'analyse antivirus du contenu, le filtrage par catégories d'URLs, et désactiver les résolutions DNS directes depuis les postes.",
+			"Implement a secure gateway including a firewall and a proxy server with user authentication and logging. In enhanced mode: enable antivirus content analysis, URL category filtering, and disable direct DNS resolution from workstations.",
 	},
 	{
 		order: 23,
-		theme: MeasureTheme.SecuriserLeReseau,
+		theme: MeasureTheme.SecureNetwork,
 		level: MeasureLevel.Standard,
-		title: "Cloisonner les services visibles depuis Internet du reste du système d'information",
+		title: "Isolate Internet-facing services from the rest of the information system",
 		description:
-			"Cloisonner physiquement les infrastructures d'hébergement Internet de toutes les infrastructures du SI non visibles depuis Internet. Mettre en place une infrastructure d'interconnexion filtrant les flux et imposant le passage par un reverse proxy.",
+			"Physically isolate Internet hosting infrastructure from all IS infrastructure not visible from the Internet. Implement an interconnection infrastructure filtering traffic and enforcing routing through a reverse proxy.",
 	},
 	{
 		order: 24,
-		theme: MeasureTheme.SecuriserLeReseau,
+		theme: MeasureTheme.SecureNetwork,
 		level: MeasureLevel.Enhanced,
-		title: "Protéger sa messagerie professionnelle",
+		title: "Protect corporate email",
 		description:
-			"Assurer l'analyse antivirus en amont des boîtes aux lettres, le chiffrement TLS des échanges entre serveurs. En renforcé : déployer un service anti-spam et mettre en place les mécanismes SPF, DKIM, DMARC. Ne pas exposer directement les serveurs de boîtes aux lettres sur Internet.",
+			"Ensure upstream antivirus analysis of mailboxes and TLS encryption of inter-server exchanges. In enhanced mode: deploy an anti-spam service and implement SPF, DKIM, and DMARC mechanisms. Do not expose mailbox servers directly to the Internet.",
 	},
 	{
 		order: 25,
-		theme: MeasureTheme.SecuriserLeReseau,
+		theme: MeasureTheme.SecureNetwork,
 		level: MeasureLevel.Enhanced,
-		title: "Sécuriser les interconnexions réseau dédiées avec les partenaires",
+		title: "Secure dedicated network interconnections with partners",
 		description:
-			"Effectuer un filtrage IP strict au plus près des flux partenaires et réduire la matrice des flux au juste besoin. En renforcé : dédier l'équipement de filtrage aux connexions partenaires et ajouter un système de détection d'intrusions.",
+			"Apply strict IP filtering as close as possible to partner traffic flows and reduce the traffic matrix to the minimum necessary. In enhanced mode: dedicate the filtering device to partner connections and add an intrusion detection system.",
 	},
 	{
 		order: 26,
-		theme: MeasureTheme.SecuriserLeReseau,
+		theme: MeasureTheme.SecureNetwork,
 		level: MeasureLevel.Standard,
-		title: "Contrôler et protéger l'accès aux salles serveurs et aux locaux techniques",
+		title: "Control and protect access to server rooms and technical premises",
 		description:
-			"Contrôler les accès aux salles serveurs avec serrures ou contrôle d'accès par badge. Proscrire les accès non accompagnés des prestataires. Réaliser une revue régulière des droits d'accès. Restreindre ou désactiver les prises réseau dans les zones ouvertes au public.",
+			"Control access to server rooms with locks or badge access control. Prohibit unaccompanied access by contractors. Conduct regular access rights reviews. Restrict or disable network ports in publicly accessible areas.",
 	},
-	// Theme VI: Sécuriser l'administration
+	// Theme VI: Secure Administration
 	{
 		order: 27,
-		theme: MeasureTheme.SecuriserLAdministration,
+		theme: MeasureTheme.SecureAdministration,
 		level: MeasureLevel.Enhanced,
-		title:
-			"Interdire l'accès à Internet depuis les postes ou serveurs utilisés pour l'administration du système d'information",
+		title: "Prohibit Internet access from administration workstations or servers",
 		description:
-			"Les postes d'administration ne doivent en aucun cas avoir accès à Internet. Mettre à disposition un poste distinct pour les usages bureautiques. En renforcé : récupérer les mises à jour depuis une source sûre et les transférer via support amovible dédié ou zone d'échanges.",
+			"Administration workstations must have no Internet access under any circumstances. Provide a separate workstation for office tasks. In enhanced mode: retrieve updates from a trusted source and transfer via a dedicated removable device or exchange zone.",
 	},
 	{
 		order: 28,
-		theme: MeasureTheme.SecuriserLAdministration,
+		theme: MeasureTheme.SecureAdministration,
 		level: MeasureLevel.Enhanced,
-		title: "Utiliser un réseau dédié et cloisonné pour l'administration du système d'information",
+		title: "Use a dedicated and isolated network for system administration",
 		description:
-			"Cloisonner spécifiquement le réseau d'administration du réseau bureautique. Recommandations : cloisonnement physique en priorité (renforcé), à défaut cloisonnement logique cryptographique via tunnels IPsec (standard), au minimum cloisonnement logique par VLAN.",
+			"Specifically isolate the administration network from the office network. Recommendations: physical isolation first (enhanced), otherwise cryptographic logical isolation via IPsec tunnels (standard), at minimum logical VLAN isolation.",
 	},
 	{
 		order: 29,
-		theme: MeasureTheme.SecuriserLAdministration,
+		theme: MeasureTheme.SecureAdministration,
 		level: MeasureLevel.Standard,
-		title:
-			"Limiter au strict besoin opérationnel les droits d'administration sur les postes de travail",
+		title: "Restrict administration privileges on workstations to operational needs only",
 		description:
-			"Par défaut, aucun utilisateur ne doit disposer de privilèges d'administration sur son poste de travail, quelle que soit sa position hiérarchique. Seuls les administrateurs chargés de l'administration des postes disposent de ces droits lors de leurs interventions. Toute délégation doit être tracée et limitée dans le temps.",
+			"By default, no user should have administration privileges on their workstation, regardless of their hierarchical position. Only administrators responsible for workstation management hold these rights during their interventions. All delegations must be logged and time-limited.",
 	},
-	// Theme VII: Gérer le nomadisme
+	// Theme VII: Manage Mobility
 	{
 		order: 30,
-		theme: MeasureTheme.GererLeNomadisme,
+		theme: MeasureTheme.ManageMobility,
 		level: MeasureLevel.Enhanced,
-		title: "Prendre des mesures de sécurisation physique des terminaux nomades",
+		title: "Implement physical security measures for mobile devices",
 		description:
-			"Sensibiliser les utilisateurs pour augmenter leur vigilance en déplacement. Banaliser les terminaux, utiliser des filtres de confidentialité. En renforcé : utiliser un support externe complémentaire (carte à puce ou jeton USB) pour conserver les secrets de déchiffrement ou d'authentification.",
+			"Raise users' awareness to increase their vigilance when travelling. Make devices inconspicuous and use privacy screens. In enhanced mode: use an additional external storage device (smart card or USB token) to hold decryption or authentication secrets.",
 	},
 	{
 		order: 31,
-		theme: MeasureTheme.GererLeNomadisme,
+		theme: MeasureTheme.ManageMobility,
 		level: MeasureLevel.Standard,
-		title:
-			"Chiffrer les données sensibles, en particulier sur le matériel potentiellement perdable",
+		title: "Encrypt sensitive data, especially on equipment that could be lost or stolen",
 		description:
-			"Ne stocker que des données préalablement chiffrées sur l'ensemble des matériels nomades. Privilégier le chiffrement complet du disque. Seul un secret (mot de passe, carte à puce, code PIN) permettra l'accès aux données.",
+			"Only store previously encrypted data on all mobile devices. Prefer full disk encryption. Only a secret (password, smart card, PIN) will allow access to the data.",
 	},
 	{
 		order: 32,
-		theme: MeasureTheme.GererLeNomadisme,
+		theme: MeasureTheme.ManageMobility,
 		level: MeasureLevel.Enhanced,
-		title: "Sécuriser la connexion réseau des postes utilisés en situation de nomadisme",
+		title: "Secure network connections for devices used in remote work scenarios",
 		description:
-			"Établir un tunnel VPN IPsec automatique et non débrayable entre le poste nomade et une passerelle VPN. En renforcé : utiliser une authentification forte avec certificat sur support externe (carte à puce ou jeton USB) ou mécanisme OTP pour éviter la réutilisation d'authentifiants depuis un poste volé.",
+			"Establish an automatic and non-bypassable IPsec VPN tunnel between the mobile device and a VPN gateway. In enhanced mode: use strong authentication with a certificate on an external medium (smart card or USB token) or an OTP mechanism to prevent credential reuse from a stolen device.",
 	},
 	{
 		order: 33,
-		theme: MeasureTheme.GererLeNomadisme,
+		theme: MeasureTheme.ManageMobility,
 		level: MeasureLevel.Enhanced,
-		title: "Adopter des politiques de sécurité dédiées aux terminaux mobiles",
+		title: "Adopt dedicated security policies for mobile devices",
 		description:
-			"Ne pas mutualiser les usages personnel et professionnel. Utiliser une solution de gestion centralisée des équipements mobiles (MDM). En renforcé : désactiver les assistants vocaux intégrés qui augmentent la surface d'attaque.",
+			"Do not mix personal and professional uses. Use a centralised mobile device management (MDM) solution. In enhanced mode: disable built-in voice assistants that increase the attack surface.",
 	},
-	// Theme VIII: Maintenir le système d'information à jour
+	// Theme VIII: Maintain System Up to Date
 	{
 		order: 34,
-		theme: MeasureTheme.MaintenirLeSystemeDInformationAJour,
+		theme: MeasureTheme.MaintainSystemUpToDate,
 		level: MeasureLevel.Standard,
-		title: "Définir une politique de mise à jour des composants du système d'information",
+		title: "Define an update policy for information system components",
 		description:
-			"Appliquer les correctifs de sécurité sur l'ensemble des composants dans le mois qui suit leur publication. Définir une politique de mise à jour couvrant l'inventaire des composants, les sources d'information sur les mises à jour, les outils de déploiement, et la qualification progressive des correctifs.",
+			"Apply security patches to all components within one month of their publication. Define an update policy covering the component inventory, update information sources, deployment tools, and progressive patch qualification.",
 	},
 	{
 		order: 35,
-		theme: MeasureTheme.MaintenirLeSystemeDInformationAJour,
+		theme: MeasureTheme.MaintainSystemUpToDate,
 		level: MeasureLevel.Standard,
-		title:
-			"Anticiper la fin de la maintenance des logiciels et systèmes et limiter les adhérences logicielles",
+		title: "Plan for software and system end-of-life and limit software dependencies",
 		description:
-			"Établir un inventaire des systèmes et applications, assurer le suivi des dates de fin de support, maintenir un parc logiciel homogène, limiter les adhérences logicielles, et inclure des clauses de suivi des correctifs dans les contrats prestataires.",
+			"Maintain an inventory of systems and applications, track end-of-support dates, maintain a homogeneous software base, limit software dependencies, and include patch-tracking clauses in contractor agreements.",
 	},
-	// Theme IX: Superviser, auditer, réagir
+	// Theme IX: Monitor, Audit, Respond
 	{
 		order: 36,
-		theme: MeasureTheme.SuperviserAuditerReagir,
+		theme: MeasureTheme.MonitorAuditRespond,
 		level: MeasureLevel.Enhanced,
-		title: "Activer et configurer les journaux des composants les plus importants",
+		title: "Enable and configure logs for the most critical components",
 		description:
-			"Journaliser les événements critiques (pare-feu, authentifications, erreurs de protocoles) pendant au moins un an. S'assurer de la synchronisation NTP. En renforcé : centraliser les journaux sur un dispositif dédié pour faciliter la recherche automatisée d'événements suspects et empêcher leur effacement.",
+			"Log critical events (firewall, authentication, protocol errors) for at least one year. Ensure NTP synchronisation. In enhanced mode: centralise logs on a dedicated device to facilitate automated detection of suspicious events and prevent their deletion.",
 	},
 	{
 		order: 37,
-		theme: MeasureTheme.SuperviserAuditerReagir,
+		theme: MeasureTheme.MonitorAuditRespond,
 		level: MeasureLevel.Enhanced,
-		title: "Définir et appliquer une politique de sauvegarde des composants critiques",
+		title: "Define and enforce a backup policy for critical components",
 		description:
-			"Formaliser une politique de sauvegarde couvrant la liste des données vitales, les types de sauvegarde, la fréquence, les procédures d'administration, de stockage et de test de restauration. En renforcé : planifier un exercice de restauration annuel et en conserver les résultats.",
+			"Formalise a backup policy covering the list of critical data, backup types, frequency, administration and storage procedures, and restoration testing. In enhanced mode: schedule an annual restoration exercise and retain the results.",
 	},
 	{
 		order: 38,
-		theme: MeasureTheme.SuperviserAuditerReagir,
+		theme: MeasureTheme.MonitorAuditRespond,
 		level: MeasureLevel.Enhanced,
-		title:
-			"Procéder à des contrôles et audits de sécurité réguliers puis appliquer les actions correctives associées",
+		title: "Conduct regular security audits and apply the resulting corrective actions",
 		description:
-			"Réaliser des audits réguliers (au moins une fois par an) du système d'information par des équipes internes ou des sociétés spécialisées. À l'issue des audits, identifier les actions correctives, planifier leur application et organiser des points de suivi. Les prestataires PASSI qualifiés par l'ANSSI sont recommandés.",
+			"Conduct regular audits (at least once a year) of the information system by internal teams or specialist firms. Following audits, identify corrective actions, plan their implementation, and organise follow-up meetings. ANSSI-qualified PASSI providers are recommended.",
 	},
 	{
 		order: 39,
-		theme: MeasureTheme.SuperviserAuditerReagir,
+		theme: MeasureTheme.MonitorAuditRespond,
 		level: MeasureLevel.Standard,
-		title:
-			"Désigner un référent en sécurité des systèmes d'information et le faire connaître auprès du personnel",
+		title: "Appoint an information security officer and make them known to all staff",
 		description:
-			"Désigner un référent SSI connu de tous les utilisateurs, chargé de définir les règles de sécurité, vérifier leur application, sensibiliser les utilisateurs et centraliser le traitement des incidents. Ce référent doit être formé à la SSI et à la gestion de crise.",
+			"Appoint an information security officer known to all users, responsible for defining security rules, verifying their application, raising user awareness, and centralising incident handling. This officer must be trained in information security and crisis management.",
 	},
 	{
 		order: 40,
-		theme: MeasureTheme.SuperviserAuditerReagir,
+		theme: MeasureTheme.MonitorAuditRespond,
 		level: MeasureLevel.Standard,
-		title: "Définir une procédure de gestion des incidents de sécurité",
+		title: "Define a security incident management procedure",
 		description:
-			"Définir les bons réflexes en cas d'incident : déconnecter la machine du réseau, maintenir sous tension sans redémarrer, prévenir la hiérarchie et le référent SSI. Consigner tout incident dans un registre. Possibilité de faire appel à un prestataire PRIS qualifié par l'ANSSI.",
+			"Define the right reflexes in the event of an incident: disconnect the machine from the network, keep it powered on without restarting, notify management and the security officer. Log all incidents in a register. An ANSSI-qualified PRIS provider may be called upon.",
 	},
-	// Theme X: Pour aller plus loin
+	// Theme X: Go Further
 	{
 		order: 41,
-		theme: MeasureTheme.PourAllerPlusLoin,
+		theme: MeasureTheme.GoFurther,
 		level: MeasureLevel.Enhanced,
-		title: "Mener une analyse de risques formelle",
+		title: "Conduct a formal risk analysis",
 		description:
-			"Mener une analyse de risques formelle selon une méthodologie dédiée (ex : EBIOS). La démarche consiste à définir le contexte, apprécier les risques selon leur probabilité et gravité, les traiter et élaborer un plan de traitement validé par une autorité désignée.",
+			"Conduct a formal risk analysis using a dedicated methodology (e.g. EBIOS). The approach consists of defining the context, assessing risks by probability and severity, treating them, and drawing up a treatment plan validated by a designated authority.",
 	},
 	{
 		order: 42,
-		theme: MeasureTheme.PourAllerPlusLoin,
+		theme: MeasureTheme.GoFurther,
 		level: MeasureLevel.Enhanced,
-		title: "Privilégier l'usage de produits et de services qualifiés par l'ANSSI",
+		title: "Prefer ANSSI-qualified products and services",
 		description:
-			"Utiliser des produits et prestataires qualifiés par l'ANSSI (catalogue disponible sur ssi.gouv.fr/qualifications). Les qualifications couvrent les prestataires d'audit (PASSI), de réponse aux incidents (PRIS), de détection d'incidents (PDIS) et de services cloud sécurisés (SecNumCloud).",
+			"Use products and service providers qualified by ANSSI (catalogue available at ssi.gouv.fr/qualifications). Qualifications cover audit providers (PASSI), incident response providers (PRIS), incident detection providers (PDIS), and secure cloud services (SecNumCloud).",
 	},
 ];
 

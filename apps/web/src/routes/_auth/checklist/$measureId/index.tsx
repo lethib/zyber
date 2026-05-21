@@ -13,6 +13,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Textarea } from "@/components/ui/textarea";
+import { LEVEL_LABELS, MEASURE_TRANSLATIONS } from "@/lib/measureTranslations";
 import { trpc } from "@/lib/trpc";
 import { THEME_META } from "../components/ThemeAccordion";
 import { MeasureStatusSelector } from "./components/MeasureStatusSelector";
@@ -23,11 +24,6 @@ export const Route = createFileRoute("/_auth/checklist/$measureId/")({
 	}),
 	component: MeasureDetailPage,
 });
-
-const LEVEL_LABELS: Record<string, string> = {
-	Standard: "Standard",
-	Renforce: "Renforcé",
-};
 
 function MeasureDetailPage() {
 	const { measureId } = Route.useParams();
@@ -123,6 +119,7 @@ function MeasureDetailPage() {
 	}
 
 	const themeMeta = THEME_META[currentMeasure.theme];
+	const translation = MEASURE_TRANSLATIONS[currentMeasure.order];
 
 	return (
 		<div className="px-6 py-8">
@@ -154,10 +151,10 @@ function MeasureDetailPage() {
 						<span className="text-xs text-muted-foreground">Mesure {currentMeasure.order}</span>
 					</div>
 					<h1 className="text-xl font-semibold text-zinc-900 leading-snug">
-						{currentMeasure.title}
+						{translation?.title ?? currentMeasure.title}
 					</h1>
 					<p className="text-sm text-muted-foreground leading-relaxed">
-						{currentMeasure.description}
+						{translation?.description ?? currentMeasure.description}
 					</p>
 				</div>
 

@@ -2,16 +2,16 @@ import { prisma } from "@db/src";
 import { EvaluationStatus, MeasureTheme } from "@prisma/client";
 
 const THEME_ORDER: MeasureTheme[] = [
-	MeasureTheme.SensibiliserEtFormer,
-	MeasureTheme.ConnaitreLeSystemeDInformation,
-	MeasureTheme.AuthentifierEtControlerLesAcces,
-	MeasureTheme.SecuriserLesPostes,
-	MeasureTheme.SecuriserLeReseau,
-	MeasureTheme.SecuriserLAdministration,
-	MeasureTheme.GererLeNomadisme,
-	MeasureTheme.MaintenirLeSystemeDInformationAJour,
-	MeasureTheme.SuperviserAuditerReagir,
-	MeasureTheme.PourAllerPlusLoin,
+	MeasureTheme.AwarenessAndTraining,
+	MeasureTheme.KnowYourInformationSystem,
+	MeasureTheme.AuthenticateAndControlAccess,
+	MeasureTheme.SecureWorkstations,
+	MeasureTheme.SecureNetwork,
+	MeasureTheme.SecureAdministration,
+	MeasureTheme.ManageMobility,
+	MeasureTheme.MaintainSystemUpToDate,
+	MeasureTheme.MonitorAuditRespond,
+	MeasureTheme.GoFurther,
 ];
 
 export class PlanActionService {

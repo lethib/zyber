@@ -6,41 +6,45 @@ import {
 	AccordionTrigger,
 } from "@/components/ui/accordion";
 import { Progress } from "@/components/ui/progress";
+import { THEME_LABELS } from "@/lib/measureTranslations";
 import { MeasureListItem } from "./MeasureListItem";
 
 export const THEME_ORDER = [
-	"SensibiliserEtFormer",
-	"ConnaitreLeSystemeDInformation",
-	"AuthentifierEtControlerLesAcces",
-	"SecuriserLesPostes",
-	"SecuriserLeReseau",
-	"SecuriserLAdministration",
-	"GererLeNomadisme",
-	"MaintenirLeSystemeDInformationAJour",
-	"SuperviserAuditerReagir",
-	"PourAllerPlusLoin",
+	"AwarenessAndTraining",
+	"KnowYourInformationSystem",
+	"AuthenticateAndControlAccess",
+	"SecureWorkstations",
+	"SecureNetwork",
+	"SecureAdministration",
+	"ManageMobility",
+	"MaintainSystemUpToDate",
+	"MonitorAuditRespond",
+	"GoFurther",
 ] as const;
 
 export const THEME_META: Record<string, { label: string; slug: string }> = {
-	SensibiliserEtFormer: { label: "Sensibiliser et former", slug: "sensibiliser-et-former" },
-	ConnaitreLeSystemeDInformation: { label: "Connaître le SI", slug: "connaitre-le-si" },
-	AuthentifierEtControlerLesAcces: {
-		label: "Authentifier et contrôler les accès",
-		slug: "authentifier-et-controler",
+	AwarenessAndTraining: {
+		label: THEME_LABELS.AwarenessAndTraining,
+		slug: "awareness-and-training",
 	},
-	SecuriserLesPostes: { label: "Sécuriser les postes", slug: "securiser-les-postes" },
-	SecuriserLeReseau: { label: "Sécuriser le réseau", slug: "securiser-le-reseau" },
-	SecuriserLAdministration: {
-		label: "Sécuriser l'administration",
-		slug: "securiser-ladministration",
+	KnowYourInformationSystem: {
+		label: THEME_LABELS.KnowYourInformationSystem,
+		slug: "know-your-is",
 	},
-	GererLeNomadisme: { label: "Gérer le nomadisme", slug: "gerer-le-nomadisme" },
-	MaintenirLeSystemeDInformationAJour: { label: "Maintenir le SI à jour", slug: "maintenir-le-si" },
-	SuperviserAuditerReagir: {
-		label: "Superviser, auditer, réagir",
-		slug: "superviser-auditer-reagir",
+	AuthenticateAndControlAccess: {
+		label: THEME_LABELS.AuthenticateAndControlAccess,
+		slug: "authenticate-and-control-access",
 	},
-	PourAllerPlusLoin: { label: "Pour aller plus loin", slug: "pour-aller-plus-loin" },
+	SecureWorkstations: { label: THEME_LABELS.SecureWorkstations, slug: "secure-workstations" },
+	SecureNetwork: { label: THEME_LABELS.SecureNetwork, slug: "secure-network" },
+	SecureAdministration: { label: THEME_LABELS.SecureAdministration, slug: "secure-administration" },
+	ManageMobility: { label: THEME_LABELS.ManageMobility, slug: "manage-mobility" },
+	MaintainSystemUpToDate: {
+		label: THEME_LABELS.MaintainSystemUpToDate,
+		slug: "maintain-system-up-to-date",
+	},
+	MonitorAuditRespond: { label: THEME_LABELS.MonitorAuditRespond, slug: "monitor-audit-respond" },
+	GoFurther: { label: THEME_LABELS.GoFurther, slug: "go-further" },
 };
 
 interface ThemeAccordionProps {

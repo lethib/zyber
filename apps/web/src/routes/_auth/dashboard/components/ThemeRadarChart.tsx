@@ -6,6 +6,7 @@ import {
 	ChartTooltip,
 	ChartTooltipContent,
 } from "@/components/ui/chart";
+import { THEME_SHORT_LABELS } from "@/lib/measureTranslations";
 import { THEME_META } from "@/routes/_auth/checklist/components/ThemeAccordion";
 
 export const LEVELS = ["all", "standard", "enhanced"] as const;
@@ -24,19 +25,6 @@ export interface ThemeBreakdownItem {
 interface ThemeRadarChartProps {
 	data: ThemeBreakdownItem[];
 }
-
-const THEME_SHORT_LABELS: Record<string, string> = {
-	SensibiliserEtFormer: "Sensibiliser",
-	ConnaitreLeSystemeDInformation: "Connaître SI",
-	AuthentifierEtControlerLesAcces: "Authentifier",
-	SecuriserLesPostes: "Postes",
-	SecuriserLeReseau: "Réseau",
-	SecuriserLAdministration: "Admin.",
-	GererLeNomadisme: "Nomadisme",
-	MaintenirLeSystemeDInformationAJour: "MAJ SI",
-	SuperviserAuditerReagir: "Superviser",
-	PourAllerPlusLoin: "Plus loin",
-};
 
 const chartConfig = {
 	score: {

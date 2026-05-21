@@ -5,7 +5,7 @@ CREATE TYPE "EvaluationStatus" AS ENUM ('NotStarted', 'InProgress', 'Achieved', 
 CREATE TYPE "MeasureLevel" AS ENUM ('Standard', 'Enhanced');
 
 -- CreateEnum
-CREATE TYPE "MeasureTheme" AS ENUM ('SensibiliserEtFormer', 'ConnaitreLeSystemeDInformation', 'AuthentifierEtControlerLesAcces', 'SecuriserLesPostes', 'SecuriserLeReseau', 'SecuriserLAdministration', 'GererLeNomadisme', 'MaintenirLeSystemeDInformationAJour', 'SuperviserAuditerReagir', 'PourAllerPlusLoin');
+CREATE TYPE "MeasureTheme" AS ENUM ('AwarenessAndTraining', 'KnowYourInformationSystem', 'AuthenticateAndControlAccess', 'SecureWorkstations', 'SecureNetwork', 'SecureAdministration', 'ManageMobility', 'MaintainSystemUpToDate', 'MonitorAuditRespond', 'GoFurther');
 
 -- CreateEnum
 CREATE TYPE "EvidenceType" AS ENUM ('File', 'Url');

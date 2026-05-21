@@ -1,6 +1,7 @@
 import { useNavigate } from "@tanstack/react-router";
 import type { EvaluationStatus, Measure } from "@zyber/server";
 import { Badge } from "@/components/ui/badge";
+import { MEASURE_TRANSLATIONS } from "@/lib/measureTranslations";
 
 const STATUS_CONFIG: Record<EvaluationStatus, { label: string; className: string }> = {
 	NotStarted: { label: "Non commencé", className: "text-slate-400 border-slate-300" },
@@ -36,7 +37,9 @@ export function MeasureListItem({
 			onClick={handleClick}
 			className="flex items-center justify-between py-3 px-4 hover:bg-muted/50 cursor-pointer rounded-sm"
 		>
-			<span className="text-sm text-foreground">{measure.title}</span>
+			<span className="text-sm text-foreground">
+				{MEASURE_TRANSLATIONS[measure.order]?.title ?? measure.title}
+			</span>
 			<Badge variant="outline" className={`shrink-0 ml-4 ${className}`}>
 				{label}
 			</Badge>

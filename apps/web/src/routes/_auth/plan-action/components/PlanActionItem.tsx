@@ -2,6 +2,7 @@ import { useNavigate } from "@tanstack/react-router";
 import type { EvaluationStatus } from "@zyber/server";
 import { ArrowRight, CheckCircle2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { MEASURE_TRANSLATIONS } from "@/lib/measureTranslations";
 
 const STATUS_CONFIG = {
 	NotStarted: {
@@ -37,12 +38,13 @@ interface PlanActionItemProps {
 export function PlanActionItem({ item, themeSlug, onStatusChange }: PlanActionItemProps) {
 	const navigate = useNavigate();
 	const cfg = STATUS_CONFIG[item.status as keyof typeof STATUS_CONFIG];
+	const title = MEASURE_TRANSLATIONS[item.measureOrder]?.title ?? item.measureTitle;
 
 	return (
 		<div className="flex items-center justify-between px-6 py-4 hover:bg-zinc-50/70 transition-colors group">
 			{/* Left: title only — theme is shown in the section header above */}
 			<span className="text-sm font-medium text-zinc-800 truncate min-w-0 mr-6 leading-snug">
-				{item.measureTitle}
+				{title}
 			</span>
 
 			{/* Right: status toggle · mark Achieved · detail link */}

@@ -19,16 +19,16 @@ enum MeasureLevel {
 }
 
 enum MeasureTheme {
-  SensibiliserEtFormer
-  ConnaitreLeSystemeDInformation
-  AuthentifierEtControlerLesAcces
-  SecuriserLesPostes
-  SecuriserLeReseau
-  SecuriserLAdministration
-  GererLeNomadisme
-  MaintenirLeSystemeDInformationAJour
-  SuperviserAuditerReagir
-  PourAllerPlusLoin
+  AwarenessAndTraining
+  KnowYourInformationSystem
+  AuthenticateAndControlAccess
+  SecureWorkstations
+  SecureNetwork
+  SecureAdministration
+  ManageMobility
+  MaintainSystemUpToDate
+  MonitorAuditRespond
+  GoFurther
 }
 
 enum EvidenceType {
