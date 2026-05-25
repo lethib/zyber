@@ -1,9 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import z from "zod";
+import { form, useAppForm } from "@/components/form";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { setToken } from "../lib/auth";
 import { trpc } from "../lib/trpc";
 
@@ -13,9 +12,22 @@ export const Route = createFileRoute("/register")({
 
 function RegisterPage() {
 	const navigate = useNavigate();
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [clientError, setClientError] = useState<string | null>(null);
+
+	const registerForm = useAppForm({
+		defaultValues: {
+			email: "",
+			password: "",
+		},
+		validators: {
+			onSubmit: z.object({
+				email: z.email(),
+				password: z.string().min(8),
+			}),
+		},
+		onSubmit: async ({ value }) => {
+			await register.mutateAsync({ email: value.email, password: value.password });
+		},
+	});
 
 	const register = trpc.auth.register.useMutation({
 		onSuccess: (token) => {
@@ -24,22 +36,15 @@ function RegisterPage() {
 		},
 		onError: (err) => {
 			if (err.data?.code === "CONFLICT") {
-				setClientError("Email déjà utilisé");
+				registerForm.setFieldMeta("email", (meta) => ({
+					...meta,
+					errorMap: { ...meta.errorMap, onServer: "Email déjà utilisé" },
+				}));
 			} else {
-				setClientError("Erreur serveur");
+				toast.error("Erreur serveur");
 			}
 		},
 	});
-
-	function handleSubmit(e: React.FormEvent) {
-		e.preventDefault();
-		setClientError(null);
-		if (password.length < 8) {
-			setClientError("Le mot de passe doit contenir au moins 8 caractères");
-			return;
-		}
-		register.mutate({ email, password });
-	}
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-muted/40">
@@ -47,34 +52,25 @@ function RegisterPage() {
 				<CardHeader>
 					<CardTitle>Créer un compte</CardTitle>
 				</CardHeader>
-				<form onSubmit={handleSubmit}>
+				<form.Context form={registerForm}>
 					<CardContent className="flex flex-col gap-4">
-						{clientError && <p className="text-sm text-destructive">{clientError}</p>}
-						<div className="flex flex-col gap-2">
-							<Label htmlFor="email">Email</Label>
-							<Input
-								id="email"
-								type="email"
-								required
-								value={email}
-								onChange={(e) => setEmail(e.target.value)}
-								placeholder="vous@exemple.com"
-							/>
-						</div>
-						<div className="flex flex-col gap-2">
-							<Label htmlFor="password">Mot de passe</Label>
-							<Input
-								id="password"
-								type="password"
-								required
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
-								placeholder="8 caractères min."
-							/>
-						</div>
-						<Button type="submit" disabled={register.isPending} className="w-full">
-							{register.isPending ? "Création..." : "S'inscrire"}
-						</Button>
+						<registerForm.AppField
+							name="email"
+							children={(field) => (
+								<field.TextField label="Email" type="email" placeholder="vous@exemple.com" />
+							)}
+						/>
+						<registerForm.AppField
+							name="password"
+							children={(field) => (
+								<field.TextField
+									label="Mot de passe"
+									type="password"
+									placeholder="8 caractères min."
+								/>
+							)}
+						/>
+						<registerForm.SubmitButton />
 					</CardContent>
 					<CardFooter className="justify-center">
 						<p className="text-sm text-muted-foreground">
@@ -84,7 +80,7 @@ function RegisterPage() {
 							</Link>
 						</p>
 					</CardFooter>
-				</form>
+				</form.Context>
 			</Card>
 		</div>
 	);

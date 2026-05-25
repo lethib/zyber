@@ -6,7 +6,7 @@ export const Route = createRootRoute({
 	component: () => (
 		<>
 			<Outlet />
-			<Toaster />
+			<Toaster position="top-right" />
 		</>
 	),
 });

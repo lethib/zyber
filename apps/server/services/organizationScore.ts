@@ -50,7 +50,7 @@ export class OrganizationScore {
 			}),
 		]);
 
-		if (!assessment?.evaluationItems) return;
+		if (!assessment?.evaluationItems) return null;
 
 		return Object.values(MeasureTheme).map((theme) => {
 			const themeMeasures = allMeasures.filter((m) => m.theme === theme);

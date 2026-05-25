@@ -1,9 +1,8 @@
 import { createFileRoute, Link, useNavigate } from "@tanstack/react-router";
-import { useState } from "react";
-import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+import z from "zod";
+import { form, useAppForm } from "@/components/form";
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { setToken } from "../lib/auth";
 import { trpc } from "../lib/trpc";
 
@@ -13,9 +12,22 @@ export const Route = createFileRoute("/login")({
 
 function LoginPage() {
 	const navigate = useNavigate();
-	const [email, setEmail] = useState("");
-	const [password, setPassword] = useState("");
-	const [clientError, setClientError] = useState<string | null>(null);
+
+	const loginForm = useAppForm({
+		defaultValues: {
+			email: "",
+			password: "",
+		},
+		validators: {
+			onSubmit: z.object({
+				email: z.email(),
+				password: z.string().min(1),
+			}),
+		},
+		onSubmit: async ({ value }) => {
+			await login.mutateAsync({ email: value.email, password: value.password }).catch(() => {});
+		},
+	});
 
 	const login = trpc.auth.login.useMutation({
 		onSuccess: (token) => {
@@ -24,18 +36,12 @@ function LoginPage() {
 		},
 		onError: (err) => {
 			if (err.data?.code === "UNAUTHORIZED") {
-				setClientError("Identifiants incorrects");
+				toast.error("Identifiants incorrects");
 			} else {
-				setClientError("Erreur serveur");
+				toast.error("Erreur serveur");
 			}
 		},
 	});
-
-	function handleSubmit(e: React.FormEvent) {
-		e.preventDefault();
-		setClientError(null);
-		login.mutate({ email, password });
-	}
 
 	return (
 		<div className="min-h-screen flex items-center justify-center bg-muted/40">
@@ -43,34 +49,23 @@ function LoginPage() {
 				<CardHeader>
 					<CardTitle>Connexion</CardTitle>
 				</CardHeader>
-				<form onSubmit={handleSubmit}>
+				<form.Context form={loginForm}>
 					<CardContent className="flex flex-col gap-4">
-						{clientError && <p className="text-sm text-destructive">{clientError}</p>}
-						<div className="flex flex-col gap-2">
-							<Label htmlFor="email">Email</Label>
-							<Input
-								id="email"
-								type="email"
-								required
-								value={email}
-								onChange={(e) => setEmail(e.target.value)}
-								placeholder="vous@exemple.com"
-							/>
-						</div>
-						<div className="flex flex-col gap-2">
-							<Label htmlFor="password">Mot de passe</Label>
-							<Input
-								id="password"
-								type="password"
-								required
-								value={password}
-								onChange={(e) => setPassword(e.target.value)}
-								placeholder="••••••••"
-							/>
-						</div>
-						<Button type="submit" disabled={login.isPending} className="w-full">
-							{login.isPending ? "Connexion..." : "Se connecter"}
-						</Button>
+						<loginForm.AppField
+							name="email"
+							children={(field) => (
+								<field.TextField label="Email" type="email" placeholder="vous@example.com" />
+							)}
+						/>
+
+						<loginForm.AppField
+							name="password"
+							children={(field) => (
+								<field.TextField label="Mot de passe" type="password" placeholder="••••••••" />
+							)}
+						/>
+
+						<loginForm.SubmitButton />
 					</CardContent>
 					<CardFooter className="justify-center">
 						<p className="text-sm text-muted-foreground">
@@ -80,7 +75,7 @@ function LoginPage() {
 							</Link>
 						</p>
 					</CardFooter>
-				</form>
+				</form.Context>
 			</Card>
 		</div>
 	);

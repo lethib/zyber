@@ -25,6 +25,9 @@
 		"enabled": true,
 		"rules": {
 			"recommended": true,
+			"correctness": {
+			  "noChildrenProp": "off"
+			},
 			"a11y": {
 				"useKeyWithClickEvents": "off",
 				"noStaticElementInteractions": "off",
